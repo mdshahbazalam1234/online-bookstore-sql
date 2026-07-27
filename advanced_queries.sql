@@ -19,10 +19,9 @@ WHERE genre = 'Fantasy';
 
 -- Q3. List customers who have placed at least 2 orders.
 
-SELECT c.name, count(o.order_id) as total_orders 
+SELECT c.customer_id, c.name, COUNT(o.order_id) as total_orders 
 FROM customers as c
 join orders as o
 on c.customer_id = o.customer_id 
-GROUP BY c.customer_id, o.order_id
-HAVING COUNT(o.order_id) >= 2
-;
+GROUP BY c.customer_id, c.name
+HAVING COUNT(o.order_id) >= 2;
