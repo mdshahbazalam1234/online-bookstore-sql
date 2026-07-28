@@ -74,11 +74,10 @@ GROUP BY  b.author;
 
 -- Q9. List the cities where customers who spent over $30 are located 
 
-SELECT c.name , c.city, sum(o.total_amount)
+SELECT c.city , o.total_amount
 FROM customers c
 join orders o
 on c.customer_id = o.customer_id
-group by c.name, c.city
-having (sum(o.total_amount)) > 30
+where o.total_amount > 30
 ;
 
