@@ -81,3 +81,25 @@ on c.customer_id = o.customer_id
 where o.total_amount > 30
 ;
 
+
+-- Q10. Find the customer who spent the most on orders
+
+SELECT c.customer_id, c.name, sum(o.total_amount) 
+FROM  customers c
+JOIN orders o
+on c.customer_id = o.customer_id
+group by c.customer_id, c.name
+order by sum(o.total_amount) DESC
+limit 1
+;
+
+
+-- Q11.Calculate the stock remaining after fulfilling all orders
+
+SELECT b.book_id, b.title,  b.stock,
+    COALESCE(SUM(o.quantity), 0) AS total_sold,
+    b.stock - COALESCE(SUM(o.quantity), 0) AS remaining_stock
+FROM book b
+LEFT JOIN orders o
+ON b.book_id = o.book_id
+GROUP BY b.book_id, b.title, b.stock;
